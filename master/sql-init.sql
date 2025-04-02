@@ -1,0 +1,1 @@
+CREATE USER rep_username REPLICATION;

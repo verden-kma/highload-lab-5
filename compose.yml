@@ -1,0 +1,35 @@
+services:
+  master:
+    container_name: postgres_master
+    build:
+      context: master/
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=default_postgres_db
+    ports:
+      - 18086:5432
+    networks:
+      - lab5
+
+  slave:
+    container_name: postgres_slave
+    build:
+      context: slave/
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=default_postgres_db
+    networks:
+      - lab5
+    ports:
+      - 18087:5433
+    depends_on: 
+    - master
+
+
+networks:
+  lab5:
+    driver: bridge
